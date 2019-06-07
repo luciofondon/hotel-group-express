@@ -1,0 +1,34 @@
+{
+  "name": "hotel-group",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Back Hotel Group realizado con Express",
+  "main": "server.js",
+  "scripts": {
+    "test": "DEBUG=hotelgroupd:* ava tests/ --verbose",
+    "start": "NODE_ENV=production node server.js",
+    "start-dev": "DEBUG=hotelgroupd:* nodemon server.js",
+    "lint": "standard --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/luciofondon/hotel-group-express.git"
+  },
+  "author": "luciofondon <luciofondonterron@gmail.com",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^2.4.2",
+    "cluster": "^0.7.7",
+    "debug": "^4.1.1",
+    "express": "^4.17.1",
+    "express-asyncify": "^1.0.0",
+    "hotel-group-db": "file:../hotel-group-db",
+    "jsonwebtoken": "^8.5.1"
+  },
+  "devDependencies": {
+    "ava": "^2.0.0",
+    "nodemon": "^1.19.1",
+    "standard": "^12.0.1",
+    "supertest": "^4.0.2"
+  }
+}
