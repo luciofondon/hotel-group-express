@@ -1,6 +1,6 @@
 'use strict'
 
-const debug = require('debug')('platziverse:db:setup')
+const debug = require('debug')('hotelgroup:db:setup')
 const inquirer = require('inquirer')
 const chalk = require('chalk')
 const minimist = require('minimist')
@@ -15,7 +15,7 @@ async function setup () {
       {
         type: 'confirm',
         name: 'setup',
-        message: 'This will destroy your database, are you sure?'
+        message: '¿Deseas eliminar la Bases de Datos?'
       }
     ])
 
@@ -25,9 +25,9 @@ async function setup () {
   }
 
   const config = {
-    database: process.env.DB_NAME || 'platziverse',
-    username: process.env.DB_USER || 'platzi',
-    password: process.env.DB_PASS || 'platzi',
+    database: process.env.DB_NAME || 'hotelgroup',
+    username: process.env.DB_USER || 'hotelgroup',
+    password: process.env.DB_PASS || 'hotelgroup',
     host: process.env.DB_HOST || 'localhost',
     dialect: 'postgres',
     logging: s => debug(s),

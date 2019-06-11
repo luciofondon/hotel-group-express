@@ -1,10 +1,10 @@
 'use strict'
 
-const setupDatabase = require('./lib/db')
-const setupHotelModel = require('./models/hotel')
-const setupRoomModel = require('./models/room')
-const setupHotel = require('./lib/hotel')
-const setupRoom = require('./lib/room')
+const setupDatabase = require('./src/repository/db')
+const setupHotelModel = require('./src/models/hotel')
+const setupRoomModel = require('./src/models/room')
+const setupHotel = require('./src/repository/hotel')
+const setupRoom = require('./src/repository/room')
 const defaults = require('defaults')
 
 module.exports = async function (config) {
@@ -24,8 +24,8 @@ module.exports = async function (config) {
   const HotelModel = setupHotelModel(config)
   const RoomModel = setupRoomModel(config)
 
-  AgentModel.hasMany(MetricModel)
-  MetricModel.belongsTo(AgentModel)
+  HotelModel.hasMany(RoomModel)
+  RoomModel.belongsTo(HotelModel)
 
   await sequelize.authenticate()
 
@@ -33,8 +33,8 @@ module.exports = async function (config) {
     await sequelize.sync({ force: true })
   }
 
-  const Agent = setupAgent(AgentModel)
-  const Metric = setupMetric(MetricModel, AgentModel)
+  const Hotel = setupHotel(HotelModel)
+  const Room = setupRoom(RoomModel, RoomModel)
 
   return {
     Hotel,

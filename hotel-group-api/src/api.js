@@ -3,29 +3,28 @@
 const debug = require('debug')('hotelgroup:api:routes')
 const express = require('express')
 const asyncify = require('express-asyncify')
-const aut = require('express-jwt')
+const auth = require('express-jwt')
 const db = require('hotel-group-db')
 const config = require('../config/dev.env')
 const api = asyncify(express.Router())
 
-let services, Agent, Metric
+let services, Hotel
 
 api.use('*', async (req, res, next) => {
-  if(!services){
-    try{
+  if (!services) {
+    try {
       services = await db(config.db)
-    } catch(e){
+    } catch (e) {
       return next(e)
     }
-    Agent = services.Agent
-    Metric = services.Metric
+    Hotel = services.Hotel
   }
   next()
 })
 
 api.get('/hotels', auth(config.auth), (req, res) => {
   debug('Request /hotels')
-  res.send({})
+  res.send(Hotel.findAll())
   // return next(new Error('Hotel not found'))
 })
 

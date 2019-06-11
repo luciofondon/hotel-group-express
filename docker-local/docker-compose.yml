@@ -1,0 +1,20 @@
+#
+# Dependencias de Hotel Group en Local: Postgres
+#
+---
+version: '3'
+services:
+
+  postgres:
+    image: postgres:9.6
+    hostname: postgres_hotelgroup
+    container_name: postgres_hotelgroup
+    network_mode: bridge
+    ports:
+      - 5432:5432
+    volumes:
+      - ./db-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: hotelgroup
+      POSTGRES_USER: hotelgroup
+      POSTGRES_PASSWORD: hotelgroup
