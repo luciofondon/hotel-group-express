@@ -34,7 +34,7 @@ module.exports = async function (config) {
   }
 
   const Hotel = setupHotel(HotelModel)
-  const Room = setupRoom(RoomModel, RoomModel)
+  const Room = setupRoom(RoomModel, HotelModel)
 
   return {
     Hotel,

@@ -1,8 +1,8 @@
 'use strict'
 
-module.exports = function setupRoom (RoomModel, AgentModel) {
+module.exports = function setupRoom (RoomModel, HotelModel) {
   function findAll () {
-    return HotelModel.findAll()
+    return RoomModel.findAll()
   }
   return {
     findAll

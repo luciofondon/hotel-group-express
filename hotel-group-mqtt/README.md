@@ -1,5 +1,10 @@
 # platziverse-mqtt
 
+```sh
+sudo apt-get install mosquitto-clients
+mosquitto_pub -t 'hotel/message' -h localhost -m "{name: 'Hotel Playa'}"
+```
+
 ## `agent/connected`
 
 ``` js

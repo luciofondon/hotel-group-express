@@ -4,7 +4,7 @@ const debug = require('debug')('hotelgroup:mqtt')
 const mosca = require('mosca')
 const redis = require('redis')
 const chalk = require('chalk')
-const db = require('platziverse-db')
+const db = require('hotel-group-db')
 
 const { parsePayload } = require('./src/utils')
 
@@ -41,14 +41,14 @@ server.on('clientConnected', client => {
   
 server.on('clientDisconnected', async (client) => {
     debug(`Client Disconnected: ${client.id}`)
-    const agent = clients.get(client.id)
+    const hotel = clients.get(client.id)
   
-    if (agent) {
-      // Mark Agent as Disconnected
-      agent.connected = false
+    if (hotel) {
+      // Mark Hotel as Disconnected
+      hotel.connected = false
   
       try {
-        await Agent.createOrUpdate(agent)
+        await Hotel.createOrUpdate(hotel)
       } catch (e) {
         return handleError(e)
       }
@@ -57,14 +57,14 @@ server.on('clientDisconnected', async (client) => {
       clients.delete(client.id)
   
       server.publish({
-        topic: 'agent/disconnected',
+        topic: 'hotel/disconnected',
         payload: JSON.stringify({
-          agent: {
-            uuid: agent.uuid
+          hotel: {
+            id: hotel.id
           }
         })
       })
-      debug(`Client (${client.id}) associated to Agent (${agent.uuid}) marked as disconnected`)
+      debug(`Client (${client.id}) associated to Hotel (${hotel.id}) marked as disconnected`)
     }
 })
   
@@ -72,11 +72,11 @@ server.on('published', async (packet, client) => {
     debug(`Received: ${packet.topic}`)
   
     switch (packet.topic) {
-      case 'room/connected':
-      case 'room/disconnected':
+      case 'hotel/connected':
+      case 'hotel/disconnected':
         debug(`Payload: ${packet.payload}`)
         break
-      case 'room/message':
+      case 'hotel/message':
         debug(`Payload: ${packet.payload}`)
   
         const payload = parsePayload(packet.payload)
@@ -86,47 +86,37 @@ server.on('published', async (packet, client) => {
   
           let agent
           try {
-            agent = await Agent.createOrUpdate(payload.agent)
+            agent = await Hotel.createOrUpdate(payload.agent)
           } catch (e) {
             return handleError(e)
           }
   
-          debug(`Room ${room.id} saved`)
+          debug(`Hotel ${hotel.id} saved`)
   
           // Notify Room is Connected
           if (!clients.get(client.id)) {
             clients.set(client.id, agent)
             server.publish({
-              topic: 'room/connected',
+              topic: 'hotel/connected',
               payload: JSON.stringify({
-                room: {
-                  name: room.name,
+                hotel: {
+                  name: hotel.name,
                 }
               })
             })
-          }
-  
-          // Store Rooms
-          for (let room of payload.rooms) {
-            let m
-  
-            try {
-              m = await Metric.create(agent.uuid, metric)
-            } catch (e) {
-              return handleError(e)
-            }
-  
-            debug(`Room ${m.id} saved on agent ${room.id}`)
           }
         }
         break
     }
   })
 
-  
+server.on('ready', async () => {
+  const services = await db(config).catch(handleFatalError)
 
-server.on('ready', () => {
-    console.log(`${chalk.green('[platziverse-mqtt]')} server is running`)
+  Hotel = services.Hotel
+  Room = services.Room
+
+  console.log(`${chalk.green('[hotelgroup-mqtt]')} server is running`)
 })
 
 server.on('error', handleFatalError)

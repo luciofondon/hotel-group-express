@@ -16,7 +16,7 @@ module.exports = function setupHotelModel (config) {
       type: Sequelize.INTEGER,
       allowNull: false,
       notEmpty: true
-    },
- 
+    }
+
   })
 }

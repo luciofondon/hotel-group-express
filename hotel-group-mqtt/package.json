@@ -6,7 +6,7 @@
   "main": "server.js",
   "scripts": {
     "start": "NODE_ENV=production node server.js",
-    "start-dev": "DEBUG:hotelgroup:* nodemon server.js",
+    "start-dev": "DEBUG=hotelgroup:* nodemon server.js",
     "lint": "standard"
   },
   "repository": {
@@ -19,7 +19,7 @@
     "chalk": "^2.4.2",
     "debug": "^4.1.1",
     "mosca": "^2.8.3",
-    "platziverse-db": "file:../hotelgroup-db",
+    "hotel-group-db": "file:../hotel-group-db",
     "redis": "^2.8.0"
   },
   "devDependencies": {

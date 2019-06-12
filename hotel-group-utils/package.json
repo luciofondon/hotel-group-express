@@ -1,0 +1,19 @@
+{
+  "name": "hotel-group-utils",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Utilidades para el proyectos",
+  "main": "index.js",
+  "scripts": {
+    "lint": "standard"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/luciofondon/hotel-group-express.git"
+  },
+  "author": "luciofondon <luciofondonterron@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "standard": "^12.0.1"
+  }
+}

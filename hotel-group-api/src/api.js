@@ -22,7 +22,7 @@ api.use('*', async (req, res, next) => {
   next()
 })
 
-api.get('/hotels', auth(config.auth), (req, res) => {
+api.get('/hotels', (req, res) => {
   debug('Request /hotels')
   res.send(Hotel.findAll())
   // return next(new Error('Hotel not found'))
@@ -32,5 +32,25 @@ api.get('hotel/:id', (req, res) => {
   const { id } = req.params
   res.send({ id })
 })
+
+api.post('/hotels', (req, res) => {
+  debug('Request /hotels')
+  res.send(Hotel.findAll())
+  // return next(new Error('Hotel not found'))
+})
+
+
+api.put('/hotel/:id', (req, res) => {
+  debug('Request /hotels')
+  res.send(Hotel.findAll())
+  // return next(new Error('Hotel not found'))
+})
+
+api.delete('/hotel/:id', (req, res) => {
+  debug('Request /hotels')
+  res.send(Hotel.findAll())
+  // return next(new Error('Hotel not found'))
+})
+
 
 module.exports = api

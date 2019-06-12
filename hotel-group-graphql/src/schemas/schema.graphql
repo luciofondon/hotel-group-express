@@ -1,0 +1,34 @@
+type Hotel {
+    id: ID!
+    name: String!
+    address: String
+    stars: Int
+}
+
+type Room {
+    id: ID!
+    number: Int!
+    hotel: Hotel!
+    checkin: Boolean
+    doubleBed: Boolean
+    cleaning: Boolean
+}
+
+type Query {
+    "Devuelve un hotel"
+    getHotel(id: ID!): Hotel
+    "Devuelve todos los hoteles"
+    getHotels: [Hotel]
+}
+
+input HotelInput {
+    name: String!
+    address: String
+    stars: Int
+}
+
+type Mutation {
+    "Crea un hotel"
+    createHotel(input: HotelInput!): Hotel
+}
+
