@@ -22,15 +22,16 @@ api.use('*', async (req, res, next) => {
   next()
 })
 
-api.get('/hotels', (req, res) => {
+api.get('/hotels', async (req, res) => {
   debug('Request /hotels')
-  res.send(Hotel.findAll())
+  res.send(await Hotel.findAll())
   // return next(new Error('Hotel not found'))
 })
 
-api.get('hotel/:id', (req, res) => {
+api.get('/hotel/:id', async (req, res) => {
   const { id } = req.params
-  res.send({ id })
+  debug(`Request /hotel/${id}`)
+  res.send(await Hotel.findById(id))
 })
 
 api.post('/hotels', (req, res) => {
@@ -38,7 +39,6 @@ api.post('/hotels', (req, res) => {
   res.send(Hotel.findAll())
   // return next(new Error('Hotel not found'))
 })
-
 
 api.put('/hotel/:id', (req, res) => {
   debug('Request /hotels')
@@ -51,6 +51,5 @@ api.delete('/hotel/:id', (req, res) => {
   res.send(Hotel.findAll())
   // return next(new Error('Hotel not found'))
 })
-
 
 module.exports = api

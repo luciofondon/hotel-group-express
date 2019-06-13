@@ -19,15 +19,19 @@ module.exports = function setupHotel (HotelModel) {
     return result.toJSON()
   }
 
-  function findById (id) {
-    return HotelModel.findById(id)
+  async function findById (id) {
+    return HotelModel.findOne({
+      where: {
+        id
+      }
+    })
   }
 
-  function findAll () {
+  async function findAll () {
     return HotelModel.findAll()
   }
 
-  function findByName (name) {
+  async function findByName (name) {
     return HotelModel.findAll({
       where: {
         name

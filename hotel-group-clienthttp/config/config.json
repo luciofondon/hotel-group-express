@@ -1,0 +1,14 @@
+{
+    "development": {
+        "server": "http://localhost:8000"
+    },
+    "testing": {
+        "server": "http://localhost:8000"
+    },
+    "preproduction": {
+        "server": "http://localhost:8000"
+    },
+    "production": {
+        "server": "http://localhost:8000"
+    }
+}

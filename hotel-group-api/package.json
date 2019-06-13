@@ -5,9 +5,9 @@
   "description": "Back Hotel Group realizado con Express",
   "main": "server.js",
   "scripts": {
-    "test": "DEBUG=hotelgroupd:* ava tests/ --verbose",
     "start": "NODE_ENV=production node server.js",
-    "start-dev": "DEBUG=hotelgroupd:* nodemon server.js",
+    "build:dev": "DEBUG=hotelgroup:* nodemon server.js",
+    "test": "DEBUG=hotelgroup:* ava tests/ --verbose",
     "lint": "standard"
   },
   "repository": {

@@ -4,8 +4,8 @@
   "description": "Conexion a la Bases de Datos",
   "main": "index.js",
   "scripts": {
+    "start": "DEBUG=hotelgroup:* node setup.js",
     "test": "DEBUG=hotelgroup:* nyc --reporter=lcov ava tests/ --verbose",
-    "setup": "DEBUG=hotelgroup:* node setup.js",
     "lint": "standard"
   },
   "repository": {

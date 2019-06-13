@@ -1,7 +1,6 @@
 'use strict'
 
 const debug = require('debug')('hotelgroup:api:db')
-require("dotenv").config();
 
 module.exports = {
   db: {

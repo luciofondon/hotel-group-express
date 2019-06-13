@@ -6,7 +6,7 @@
   "main": "server.js",
   "scripts": {
     "start": "NODE_ENV=production node server.js",
-    "start-dev": "DEBUG=hotelgroup:* nodemon server.js",
+    "build:dev": "DEBUG=hotelgroup:* nodemon server.js",
     "lint": "standard"
   },
   "repository": {
