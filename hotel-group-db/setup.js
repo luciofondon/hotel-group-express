@@ -1,5 +1,8 @@
 'use strict'
 
+if (process.env.NODE_ENV !== 'production'){
+  require('longjohn');
+}
 const debug = require('debug')('hotelgroup:db:setup')
 const inquirer = require('inquirer')
 const chalk = require('chalk')
