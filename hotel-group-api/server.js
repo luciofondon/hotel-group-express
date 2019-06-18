@@ -5,14 +5,18 @@ const express = require('express')
 const asyncify = require('express-asyncify')
 const chalk = require('chalk')
 const debug = require('debug')('hotelgroup:api')
-const api = require('./src/api')
+//const api = require('./src/api')
 
 const port = process.env.PORT || 3000
 const app = asyncify(express())
 const server = http.createServer(app)
 
-app.use('/api', api)
 // Express Error Handler
+
+var api = asyncify(express.Router());
+require('./src/routes/hotel')(api);
+app.use('/api', api)
+
 app.use((err, req, res, next) => {
   debug(`Error: ${err.message}`)
   if (err.message.match(/not found/)) {
